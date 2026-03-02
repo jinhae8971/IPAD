@@ -25,7 +25,7 @@ AI 에이전트가 매일 한국과 미국 증시 뉴스를 수집하고, 멀티
 
 | Secret | 설명 |
 |--------|------|
-| `OPENAI_API_KEY` | OpenAI API 키 |
+| `ANTHROPIC_API_KEY` | Anthropic API 키 |
 
 ### GitHub Pages 설정
 
@@ -43,12 +43,12 @@ AI 에이전트가 매일 한국과 미국 증시 뉴스를 수집하고, 멀티
 ### 로컬 실행
 ```bash
 pip install -r requirements.txt
-export OPENAI_API_KEY="your-key"
+export ANTHROPIC_API_KEY="your-key"
 python src/main.py
 ```
 
 ## 기술 스택
 
-- Python 3.11, OpenAI API (GPT-4o-mini)
+- Python 3.11, Anthropic Claude API (claude-haiku-4-5)
 - RSS 피드 (feedparser), Jinja2 템플릿
 - GitHub Actions + GitHub Pages
