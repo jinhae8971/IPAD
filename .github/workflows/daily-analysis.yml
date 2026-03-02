@@ -4,6 +4,8 @@ on:
   schedule:
     # 매일 오전 9시 KST = UTC 00:00
     - cron: '0 0 * * *'
+  push:
+    branches: [main, master]
   workflow_dispatch:
     # 수동 실행 지원
 
@@ -11,6 +13,10 @@ permissions:
   contents: write
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   analyze:
