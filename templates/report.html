@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ report.date }} - 한미 증시 AI 분석</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">&#x1F4CA;</span>
+        <h1>IPAD - 한미 증시 AI 분석</h1>
+      </div>
+      <span class="header-date">{{ report.date }}</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="../index.html" class="back-link">&#x2190; 전체 리포트 목록</a>
+
+    <div class="report-header">
+      <h2>일일 증시 분석 리포트</h2>
+      <div class="date-display">{{ report.date }}</div>
+      {% if report.generated_at %}
+      <div class="generated-at">생성: {{ report.generated_at }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('synthesis')">&#x1F3AF; 종합 인사이트</button>
+      <button class="tab-btn" onclick="switchTab('news')">&#x1F4F0; 뉴스 분석</button>
+      <button class="tab-btn" onclick="switchTab('bull')">&#x1F7E2; 강세 분석</button>
+      <button class="tab-btn" onclick="switchTab('bear')">&#x1F534; 약세 분석</button>
+      <button class="tab-btn" onclick="switchTab('technical')">&#x1F4CA; 기술 분석</button>
+      <button class="tab-btn" onclick="switchTab('raw-news')">&#x1F4F0; 원본 뉴스</button>
+    </nav>
+
+    <!-- 종합 인사이트 -->
+    <div id="tab-synthesis" class="tab-content active">
+      {% if report.synthesis %}
+      <div class="analysis-card synthesis">
+        <h3>&#x1F3DB;&#xFE0F; 투자전략 총괄 - 종합 인사이트</h3>
+        <div class="analysis-content">{{ report.synthesis.content | replace('\n', '<br>') }}</div>
+        {% if report.synthesis.key_points %}
+        <div class="key-points">
+          <h4>&#x1F511; 핵심 포인트</h4>
+          <ul>
+            {% for point in report.synthesis.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="icon">&#x1F6A7;</div>
+        <p>종합 인사이트가 아직 생성되지 않았습니다.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 뉴스 분석 -->
+    <div id="tab-news" class="tab-content">
+      {% if report.news_summary %}
+      <div class="analysis-card">
+        <h3>&#x1F4F0; 뉴스 분석가 - 핵심 이슈 도출</h3>
+        <div class="analysis-content">{{ report.news_summary.content | replace('\n', '<br>') }}</div>
+        {% if report.news_summary.key_points %}
+        <div class="key-points">
+          <h4>&#x1F511; 핵심 포인트</h4>
+          <ul>
+            {% for point in report.news_summary.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="icon">&#x1F6A7;</div>
+        <p>뉴스 분석이 아직 생성되지 않았습니다.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 강세 분석 -->
+    <div id="tab-bull" class="tab-content">
+      {% if report.bull_analysis %}
+      <div class="analysis-card bull">
+        <h3>&#x1F7E2; 강세 분석가 - 상승 관점</h3>
+        <div class="analysis-content">{{ report.bull_analysis.content | replace('\n', '<br>') }}</div>
+        {% if report.bull_analysis.key_points %}
+        <div class="key-points">
+          <h4>&#x1F511; 핵심 포인트</h4>
+          <ul>
+            {% for point in report.bull_analysis.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="icon">&#x1F6A7;</div>
+        <p>강세 분석이 아직 생성되지 않았습니다.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 약세 분석 -->
+    <div id="tab-bear" class="tab-content">
+      {% if report.bear_analysis %}
+      <div class="analysis-card bear">
+        <h3>&#x1F534; 약세 분석가 - 하락 관점</h3>
+        <div class="analysis-content">{{ report.bear_analysis.content | replace('\n', '<br>') }}</div>
+        {% if report.bear_analysis.key_points %}
+        <div class="key-points">
+          <h4>&#x1F511; 핵심 포인트</h4>
+          <ul>
+            {% for point in report.bear_analysis.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="icon">&#x1F6A7;</div>
+        <p>약세 분석이 아직 생성되지 않았습니다.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 기술적 분석 -->
+    <div id="tab-technical" class="tab-content">
+      {% if report.technical_analysis %}
+      <div class="analysis-card tech">
+        <h3>&#x1F4CA; 기술적 분석가 - 중립 관점</h3>
+        <div class="analysis-content">{{ report.technical_analysis.content | replace('\n', '<br>') }}</div>
+        {% if report.technical_analysis.key_points %}
+        <div class="key-points">
+          <h4>&#x1F511; 핵심 포인트</h4>
+          <ul>
+            {% for point in report.technical_analysis.key_points %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="empty-state">
+        <div class="icon">&#x1F6A7;</div>
+        <p>기술적 분석이 아직 생성되지 않았습니다.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- 원본 뉴스 -->
+    <div id="tab-raw-news" class="tab-content">
+      <div class="news-grid">
+        <div class="news-section">
+          <h3>&#x1F1F0;&#x1F1F7; 한국 증시 뉴스 ({{ report.kr_news | length }}건)</h3>
+          {% if report.kr_news %}
+            {% for news in report.kr_news %}
+            <div class="news-item">
+              <div class="news-title">
+                {% if news.link %}<a href="{{ news.link }}" target="_blank" rel="noopener">{{ news.title }}</a>{% else %}{{ news.title }}{% endif %}
+              </div>
+              <div class="news-source">{{ news.source }}{% if news.published %} &middot; {{ news.published.strftime('%H:%M') }}{% endif %}</div>
+              {% if news.summary %}<div class="news-summary-text">{{ news.summary }}</div>{% endif %}
+            </div>
+            {% endfor %}
+          {% else %}
+            <p style="color: var(--text-muted);">수집된 한국 뉴스가 없습니다.</p>
+          {% endif %}
+        </div>
+
+        <div class="news-section">
+          <h3>&#x1F1FA;&#x1F1F8; 미국 증시 뉴스 ({{ report.us_news | length }}건)</h3>
+          {% if report.us_news %}
+            {% for news in report.us_news %}
+            <div class="news-item">
+              <div class="news-title">
+                {% if news.link %}<a href="{{ news.link }}" target="_blank" rel="noopener">{{ news.title }}</a>{% else %}{{ news.title }}{% endif %}
+              </div>
+              <div class="news-source">{{ news.source }}{% if news.published %} &middot; {{ news.published.strftime('%H:%M') }}{% endif %}</div>
+              {% if news.summary %}<div class="news-summary-text">{{ news.summary }}</div>{% endif %}
+            </div>
+            {% endfor %}
+          {% else %}
+            <p style="color: var(--text-muted);">수집된 미국 뉴스가 없습니다.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="disclaimer">
+      &#x26A0;&#xFE0F; 본 분석은 AI가 자동 생성한 것으로, 투자 권유가 아닙니다.
+      투자 결정은 본인의 판단과 책임 하에 이루어져야 합니다.
+    </div>
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      // 모든 탭 비활성화
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+
+      // 선택한 탭 활성화
+      document.getElementById('tab-' + tabId).classList.add('active');
+
+      // 버튼 활성화
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
