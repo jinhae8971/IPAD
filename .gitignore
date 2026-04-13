@@ -16,6 +16,10 @@ build/
 *.local
 *.tsbuildinfo
 
+# SQLite persistence volumes
+/data/
+backend/data/
+
 # Test
 coverage/
 

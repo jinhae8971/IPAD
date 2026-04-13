@@ -21,11 +21,11 @@
 ## 기술 스택
 
 - **프론트엔드**: Vite 5 + React 18 + TypeScript (strict) + TanStack Query 5
-- **백엔드**: FastAPI + Pydantic v2 (Python 3.11)
+- **백엔드**: FastAPI + Pydantic v2 + SQLite (stdlib sqlite3) + Anthropic SDK (Python 3.11)
 - **라우팅**: react-router-dom v6 (HashRouter → GH Pages 친화)
 - **테스트**: Vitest + jsdom + Testing Library / pytest
 - **품질**: ESLint + Prettier + TypeScript typecheck
-- **CI/CD**: GitHub Actions (frontend + backend CI + GH Pages 배포)
+- **CI/CD**: GitHub Actions (frontend + backend CI + GH Pages 배포 + GHCR 이미지 푸시)
 
 ## 저장소 레이아웃
 
@@ -44,9 +44,14 @@
 │   ├── app/
 │   │   ├── main.py                 # FastAPI 앱
 │   │   ├── models.py               # Pydantic 모델
+│   │   ├── db.py                   # SQLite 커넥션 + 스키마
+│   │   ├── llm/client.py           # Anthropic SDK 래퍼 (테스트용 FakeLLM 지원)
+│   │   ├── agents/                 # 실행형 에이전트 (doc_summarizer …)
+│   │   ├── store/workloads.py      # SQLite-backed 워크로드 스토어
 │   │   ├── data/                   # agents / providers / workloads 시드
 │   │   └── routers/                # /api/agents /api/providers /api/workloads
-│   ├── tests/test_api.py           # pytest
+│   ├── tests/                      # pytest (conftest로 임시 DB)
+│   ├── Dockerfile                  # Python 멀티스테이지 + 비루트 실행
 │   └── requirements.txt
 ├── analyzer/                       # 기존 한미 증시 멀티에이전트 분석 시스템 (Python)
 │   ├── src/ templates/ docs/ data/
@@ -95,6 +100,7 @@ docker compose up --build
 
 - **`web`**: Vite 빌드 결과를 `nginx:1.27-alpine`이 서빙. `/api/*` 는 `api:8000`으로 프록시하고, 그 외 경로는 `index.html`로 SPA fallback.
 - **`api`**: `python:3.11-slim` 기반 멀티스테이지 이미지. uvicorn으로 FastAPI 를 포트 8000에 바인드. 비루트 사용자 `app`으로 실행.
+- **영속화**: `./data` 디렉터리가 컨테이너의 `/data` 로 마운트되어 SQLite DB(`workstation.db`)를 보관합니다. `docker compose down` 후 재기동해도 워크로드 이력이 유지되며, 리셋하려면 `./data/workstation.db` 를 삭제하면 됩니다.
 - `web`은 `api`의 헬스체크(`/api/health`)가 통과한 뒤에만 기동합니다 (`depends_on.condition: service_healthy`).
 - `docker compose down` 으로 정리.
 

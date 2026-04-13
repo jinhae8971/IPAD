@@ -18,6 +18,11 @@ services:
     environment:
       # Set from your shell; leave empty to run with FakeLLM-only flows.
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      WORKSTATION_DB_PATH: /data/workstation.db
+    volumes:
+      # Persistent SQLite database. Survives `docker compose down` and
+      # container restarts. Delete ./data/workstation.db to reset.
+      - ./data:/data
     expose:
       - "8000"
     healthcheck:

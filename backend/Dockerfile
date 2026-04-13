@@ -43,6 +43,10 @@ WORKDIR /app
 COPY --from=deps /opt/venv /opt/venv
 COPY app ./app
 
+# Persistent data directory (mounted as a volume in docker-compose).
+RUN mkdir -p /data && chown -R app:app /data
+ENV WORKSTATION_DB_PATH=/data/workstation.db
+
 USER app
 
 EXPOSE 8000
