@@ -1,0 +1,14 @@
+node_modules
+dist
+.git
+.github
+analyzer
+backend
+.venv
+coverage
+*.log
+*.md
+!README.md
+.idea
+.vscode
+.DS_Store

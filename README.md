@@ -51,9 +51,12 @@
 ├── analyzer/                       # 기존 한미 증시 멀티에이전트 분석 시스템 (Python)
 │   ├── src/ templates/ docs/ data/
 │   └── requirements.txt
+├── Dockerfile                      # Frontend: Vite build → nginx serve
+├── nginx.conf                      # SPA fallback + /api 리버스 프록시
+├── docker-compose.yml              # web + api 스택
 └── .github/workflows/
     ├── ci.yml                      # 프론트 + 백엔드 CI
-    ├── deploy.yml                  # main 푸시 시 GH Pages 배포
+    ├── deploy.yml                  # GH Pages 배포 + GHCR 이미지 푸시
     └── daily-analysis.yml          # 기존 Python 분석기 일일 실행
 ```
 
@@ -75,6 +78,27 @@ npm run dev       # http://localhost:5173  (/api 는 자동으로 :8000 으로 �
 ```
 
 프론트엔드는 백엔드가 꺼져 있어도 에이전트 카탈로그·카테고리 정적 시드로 동작합니다 (TanStack Query `placeholderData`). 프로바이더·워크로드 탭은 백엔드 응답을 직접 소비합니다.
+
+## 셀프호스팅 (Docker Compose)
+
+```bash
+# Anthropic 키를 세션 환경 변수로 주입
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+# 프론트(nginx) + 백엔드(uvicorn) 동시 기동
+docker compose up --build
+
+# → http://localhost:8080  (nginx 가 /api/* 를 api 서비스로 리버스 프록시)
+```
+
+구성:
+
+- **`web`**: Vite 빌드 결과를 `nginx:1.27-alpine`이 서빙. `/api/*` 는 `api:8000`으로 프록시하고, 그 외 경로는 `index.html`로 SPA fallback.
+- **`api`**: `python:3.11-slim` 기반 멀티스테이지 이미지. uvicorn으로 FastAPI 를 포트 8000에 바인드. 비루트 사용자 `app`으로 실행.
+- `web`은 `api`의 헬스체크(`/api/health`)가 통과한 뒤에만 기동합니다 (`depends_on.condition: service_healthy`).
+- `docker compose down` 으로 정리.
+
+두 이미지는 `deploy` 워크플로우가 `main` 푸시 시 GHCR 에 자동 빌드·푸시합니다 (`ghcr.io/<owner>/<repo>-web`, `-api`, 태그: `latest` + 커밋 SHA 7글자).
 
 ## 품질 게이트
 
@@ -109,7 +133,14 @@ npm run build          # 프로덕션 빌드 → dist/
 
 ### Deploy (`.github/workflows/deploy.yml`)
 
-`main`(또는 `master`) 브랜치 push 시 `dist/`를 GitHub Pages로 배포합니다. `analyzer/docs/`가 존재하면 `dist/analyzer/`로 병합하여, 기존 증시 분석 리포트도 같은 사이트의 `/analyzer` 경로에서 볼 수 있게 합니다.
+`main`(또는 `master`) 브랜치 push 시 세 개의 job 이 실행됩니다.
+
+1. **pages-build** — `npm run build` → `analyzer/docs/` 병합 → Pages 아티팩트 업로드
+2. **pages-deploy** — GitHub Pages 환경으로 배포
+3. **images** — 백엔드/프론트엔드 Docker 이미지를 GHCR에 병렬 빌드·푸시
+   - `ghcr.io/<owner>/<repo>-api:latest`, `:<sha7>`
+   - `ghcr.io/<owner>/<repo>-web:latest`, `:<sha7>`
+   - Buildx + GHA cache(`type=gha`) 로 재빌드 비용 최소화
 
 ### Daily Analysis (`.github/workflows/daily-analysis.yml`)
 

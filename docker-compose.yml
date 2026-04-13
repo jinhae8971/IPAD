@@ -1,0 +1,45 @@
+# AI Workstation — self-hosted stack.
+#
+# - `web`: nginx serving the Vite build and reverse-proxying /api to
+#   the `api` container.
+# - `api`: FastAPI (uvicorn) with the agent catalog, workload store,
+#   and the Doc Summarizer run endpoint.
+#
+# Usage:
+#   ANTHROPIC_API_KEY=sk-... docker compose up --build
+#   open http://localhost:8080
+
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ai-workstation-api:local
+    environment:
+      # Set from your shell; leave empty to run with FakeLLM-only flows.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+    expose:
+      - "8000"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/api/health',timeout=3).status==200 else 1)"
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ai-workstation-web:local
+    ports:
+      - "8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
