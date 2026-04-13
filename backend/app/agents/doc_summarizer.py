@@ -95,11 +95,20 @@ def summarize(
             raise SummarizerError("Model returned empty summary")
 
         duration = int(time.monotonic() - started)
+        result_payload = {
+            "input_preview": text[:500],
+            "summary": summary_text,
+            "quotes": quotes[:3],
+            "model": result.model,
+            "input_tokens": result.input_tokens,
+            "output_tokens": result.output_tokens,
+        }
         workload_store.update_status(
             workload.id,
             status="success",
             duration_sec=duration,
             summary=f"요약 완료: {summary_text[:60]}",
+            result=result_payload,
         )
         return SummaryResult(
             summary=summary_text,

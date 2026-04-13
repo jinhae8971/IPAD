@@ -55,6 +55,7 @@ class Workload(BaseModel):
     started_at: str = Field(alias="startedAt")
     duration_sec: int = Field(alias="durationSec")
     summary: str
+    result: dict | None = Field(default=None)
 
     model_config = {"populate_by_name": True}
 

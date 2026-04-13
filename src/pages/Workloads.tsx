@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useWorkloads, type Workload } from '../api/hooks';
 
 function statusPill(status: Workload['status']) {
@@ -42,7 +43,9 @@ export default function Workloads() {
             <tbody>
               {workloads.map((w) => (
                 <tr key={w.id} style={{ borderTop: '1px solid var(--border)' }}>
-                  <td style={{ padding: '10px 14px', fontFamily: 'monospace' }}>{w.id}</td>
+                  <td style={{ padding: '10px 14px', fontFamily: 'monospace' }}>
+                    <Link to={`/workloads/${w.id}`}>{w.id}</Link>
+                  </td>
                   <td style={{ padding: '10px 14px' }}>{w.agent}</td>
                   <td style={{ padding: '10px 14px' }}>{statusPill(w.status)}</td>
                   <td style={{ padding: '10px 14px', color: 'var(--text-muted)' }}>

@@ -19,6 +19,7 @@ export interface Workload {
   startedAt: string;
   durationSec: number;
   summary: string;
+  result?: Record<string, unknown> | null;
 }
 
 /**
@@ -61,5 +62,14 @@ export function useWorkloads() {
     queryFn: () => apiGet<Workload[]>('/workloads'),
     retry: 1,
     refetchInterval: 15_000,
+  });
+}
+
+export function useWorkload(id: string | undefined) {
+  return useQuery<Workload>({
+    queryKey: ['workloads', id],
+    queryFn: () => apiGet<Workload>(`/workloads/${id}`),
+    enabled: Boolean(id),
+    retry: 1,
   });
 }

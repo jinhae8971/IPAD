@@ -146,11 +146,29 @@ def review(
         comments = _normalize_comments(parsed.get("comments", []))
 
         duration = int(time.monotonic() - started)
+        result_payload = {
+            "diff_preview": diff[:500],
+            "context": context,
+            "summary": summary_text,
+            "comments": [
+                {
+                    "file": c.file,
+                    "line": c.line,
+                    "severity": c.severity,
+                    "message": c.message,
+                }
+                for c in comments
+            ],
+            "model": result.model,
+            "input_tokens": result.input_tokens,
+            "output_tokens": result.output_tokens,
+        }
         workload_store.update_status(
             workload.id,
             status="success",
             duration_sec=duration,
             summary=f"리뷰 완료: {len(comments)}개 코멘트",
+            result=result_payload,
         )
         return ReviewResult(
             summary=summary_text,

@@ -7,6 +7,7 @@ import AgentDetail from './pages/AgentDetail';
 import ApiProviders from './pages/ApiProviders';
 import Advanced from './pages/Advanced';
 import Workloads from './pages/Workloads';
+import WorkloadDetail from './pages/WorkloadDetail';
 
 /**
  * Hash-based router so the SPA works on GitHub Pages without
@@ -27,6 +28,7 @@ export const router = createHashRouter([
       { path: 'api-providers', element: <ApiProviders /> },
       { path: 'advanced', element: <Advanced /> },
       { path: 'workloads', element: <Workloads /> },
+      { path: 'workloads/:workloadId', element: <WorkloadDetail /> },
       { path: '*', element: <Navigate to="/" replace /> },
     ],
   },

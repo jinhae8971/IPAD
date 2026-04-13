@@ -8,14 +8,19 @@ tests.
 IDs follow the existing ``wl-NNNN`` pattern; ``create`` picks the next
 number based on the current max so they stay monotonically increasing
 even across process restarts.
+
+Phase 12 added the optional ``result`` field — agents can hand back a
+JSON-serializable dict on success which is then exposed via
+``GET /api/workloads/{id}`` so the UI can render a detail view.
 """
 
 from __future__ import annotations
 
+import json
 import re
 from datetime import datetime, timedelta, timezone
 from threading import Lock
-from typing import Iterable
+from typing import Any, Iterable
 
 from ..db import get_conn, init_schema
 from ..models import Workload, WorkloadStatus
@@ -30,6 +35,13 @@ def _now_kst() -> str:
 
 
 def _row_to_workload(row) -> Workload:  # noqa: ANN001
+    raw = row["result_json"]
+    parsed: dict | None = None
+    if raw:
+        try:
+            parsed = json.loads(raw)
+        except (TypeError, json.JSONDecodeError):
+            parsed = None
     return Workload(
         id=row["id"],
         agent=row["agent"],
@@ -37,6 +49,7 @@ def _row_to_workload(row) -> Workload:  # noqa: ANN001
         startedAt=row["started_at"],
         durationSec=row["duration_sec"],
         summary=row["summary"],
+        result=parsed,
     )
 
 
@@ -49,8 +62,8 @@ def _insert(conn, workload: Workload) -> None:  # noqa: ANN001
     conn.execute(
         """
         INSERT OR REPLACE INTO workloads
-            (id, agent, status, started_at, duration_sec, summary)
-        VALUES (?, ?, ?, ?, ?, ?)
+            (id, agent, status, started_at, duration_sec, summary, result_json)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
         """,
         (
             workload.id,
@@ -59,6 +72,7 @@ def _insert(conn, workload: Workload) -> None:  # noqa: ANN001
             workload.started_at,
             workload.duration_sec,
             workload.summary,
+            json.dumps(workload.result, ensure_ascii=False) if workload.result else None,
         ),
     )
 
@@ -88,9 +102,7 @@ class WorkloadStore:
 
     def list(self) -> list[Workload]:
         with get_conn() as conn:
-            rows = conn.execute(
-                "SELECT * FROM workloads ORDER BY id DESC"
-            ).fetchall()
+            rows = conn.execute("SELECT * FROM workloads ORDER BY id DESC").fetchall()
         return [_row_to_workload(r) for r in rows]
 
     def get(self, workload_id: str) -> Workload | None:
@@ -124,6 +136,7 @@ class WorkloadStore:
         status: WorkloadStatus,
         duration_sec: int,
         summary: str | None = None,
+        result: dict[str, Any] | None = None,
     ) -> Workload | None:
         with self._lock, get_conn() as conn:
             existing = conn.execute(
@@ -133,14 +146,30 @@ class WorkloadStore:
             if existing is None:
                 return None
             new_summary = summary if summary is not None else existing["summary"]
-            conn.execute(
-                """
-                UPDATE workloads
-                SET status = ?, duration_sec = ?, summary = ?
-                WHERE id = ?
-                """,
-                (status, duration_sec, new_summary, workload_id),
-            )
+            if result is not None:
+                conn.execute(
+                    """
+                    UPDATE workloads
+                    SET status = ?, duration_sec = ?, summary = ?, result_json = ?
+                    WHERE id = ?
+                    """,
+                    (
+                        status,
+                        duration_sec,
+                        new_summary,
+                        json.dumps(result, ensure_ascii=False),
+                        workload_id,
+                    ),
+                )
+            else:
+                conn.execute(
+                    """
+                    UPDATE workloads
+                    SET status = ?, duration_sec = ?, summary = ?
+                    WHERE id = ?
+                    """,
+                    (status, duration_sec, new_summary, workload_id),
+                )
             row = conn.execute(
                 "SELECT * FROM workloads WHERE id = ?",
                 (workload_id,),

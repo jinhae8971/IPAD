@@ -26,10 +26,24 @@ CREATE TABLE IF NOT EXISTS workloads (
     status TEXT NOT NULL,
     started_at TEXT NOT NULL,
     duration_sec INTEGER NOT NULL,
-    summary TEXT NOT NULL
+    summary TEXT NOT NULL,
+    result_json TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_workloads_id_desc ON workloads(id DESC);
 """
+
+
+def _ensure_columns(conn) -> None:  # noqa: ANN001
+    """Idempotent column migrations.
+
+    SQLite's ``CREATE TABLE IF NOT EXISTS`` cannot add columns to an
+    existing table, so we explicitly ALTER when we ship a new field.
+    Each ALTER is wrapped in try/except OperationalError so reruns are
+    safe.
+    """
+    cols = {row[1] for row in conn.execute("PRAGMA table_info(workloads)").fetchall()}
+    if "result_json" not in cols:
+        conn.execute("ALTER TABLE workloads ADD COLUMN result_json TEXT")
 
 
 def get_db_path() -> Path:
@@ -53,3 +67,4 @@ def get_conn() -> Iterator[sqlite3.Connection]:
 def init_schema() -> None:
     with get_conn() as conn:
         conn.executescript(SCHEMA)
+        _ensure_columns(conn)
