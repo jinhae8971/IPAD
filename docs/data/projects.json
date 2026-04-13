@@ -1,0 +1,302 @@
+{
+  "owner": {
+    "github": "jinhae8971",
+    "name": "jinhae8971",
+    "tagline": "AI 멀티에이전트 엔지니어 · 금융 시장 분석 자동화",
+    "summary": "Claude·Ollama 기반 멀티에이전트 시스템과 퀀트 파이프라인을 설계·운용합니다. 뉴스 수집부터 AI 토론, 리포트 배포까지 금융 분석의 전 과정을 자동화하는 데 집중하고 있습니다.",
+    "focus": "🎯 Focusing",
+    "links": {
+      "github": "https://github.com/jinhae8971",
+      "live_demo": "market/index.html"
+    }
+  },
+  "domains": [
+    {
+      "id": "multi-agent",
+      "label": "AI Multi-Agent Systems",
+      "icon": "🤖",
+      "description": "역할별 에이전트가 협력·토론해 의사결정을 만드는 시스템 설계",
+      "accent": "#7c9cff"
+    },
+    {
+      "id": "quant",
+      "label": "Quant & Market Analysis",
+      "icon": "📈",
+      "description": "팩터 모델·기술적 분석·뉴스 기반 시그널을 조합한 주식/ETF 분석",
+      "accent": "#5ad69f"
+    },
+    {
+      "id": "devtools",
+      "label": "Agentic Dev Tools",
+      "icon": "🛠️",
+      "description": "Claude·Ollama 로컬 LLM을 활용한 자율 에이전트 IDE/툴체인",
+      "accent": "#ffb155"
+    },
+    {
+      "id": "dashboard",
+      "label": "Data Dashboards",
+      "icon": "📊",
+      "description": "GitHub Actions 자동화 + 정적 배포로 매일 갱신되는 데이터 대시보드",
+      "accent": "#e06bc8"
+    }
+  ],
+  "projects": [
+    {
+      "slug": "IPAD",
+      "title": "IPAD — 한미 증시 멀티에이전트 분석",
+      "tagline": "KR·US 뉴스를 수집해 강세/약세/기술적 분석가가 토론하고 종합 인사이트를 도출하는 매일 자동 실행 시스템",
+      "domain": "multi-agent",
+      "stack": ["Python", "Claude API", "GitHub Actions", "Jinja2"],
+      "highlights": [
+        "6개 역할 에이전트 파이프라인",
+        "매일 09:00 KST 자동 실행 & 배포",
+        "강세/약세/기술적 토론 → Synthesis"
+      ],
+      "github": "https://github.com/jinhae8971/IPAD",
+      "live": "market/index.html",
+      "featured": true
+    },
+    {
+      "slug": "portfolio-council-ai",
+      "title": "Portfolio Council AI",
+      "tagline": "6명의 전문가 에이전트가 토론하는 멀티에이전트 투자 자문 시스템",
+      "domain": "multi-agent",
+      "stack": ["Python", "Claude API", "Multi-Agent"],
+      "highlights": [
+        "6 Expert Agents Debate",
+        "Investment Advisory Pipeline"
+      ],
+      "github": "https://github.com/jinhae8971/portfolio-council-ai",
+      "live": null,
+      "featured": true
+    },
+    {
+      "slug": "kospi-morning-briefing",
+      "title": "KOSPI 모닝브리핑",
+      "tagline": "코스피 장전 멀티에이전트 토론 브리핑 시스템 — 매 아침 자동 생성",
+      "domain": "multi-agent",
+      "stack": ["Python", "HTML", "Claude API"],
+      "highlights": [
+        "매일 장전 자동 브리핑",
+        "에이전트 토론 기반 시나리오"
+      ],
+      "github": "https://github.com/jinhae8971/kospi-morning-briefing",
+      "live": null,
+      "featured": true
+    },
+    {
+      "slug": "korean-stock-agent",
+      "title": "Korean Stock Agent — Quartet",
+      "tagline": "AI Multi-Agent Korean Stock Market Analysis (Quartet System)",
+      "domain": "multi-agent",
+      "stack": ["Python", "LLM", "Multi-Agent"],
+      "highlights": [
+        "4-agent Quartet 협업",
+        "한국 시장 특화 분석"
+      ],
+      "github": "https://github.com/jinhae8971/korean-stock-agent",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "us-market-agent",
+      "title": "US Market Multi-Agent",
+      "tagline": "미국 주식시장 대상 멀티에이전트 분석 시스템",
+      "domain": "multi-agent",
+      "stack": ["Python", "LLM"],
+      "highlights": [
+        "US 매크로/섹터 분석",
+        "에이전트 파이프라인"
+      ],
+      "github": "https://github.com/jinhae8971/us-market-agent",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "multi-agent-researcher",
+      "title": "Multi-Agent Researcher",
+      "tagline": "범용 멀티에이전트 리서치 파이프라인 실험",
+      "domain": "multi-agent",
+      "stack": ["Python", "LLM"],
+      "highlights": [
+        "Researcher / Critic / Synthesizer",
+        "Generic research pipeline"
+      ],
+      "github": "https://github.com/jinhae8971/multi-agent-researcher",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "nasdaq-quant-analyzer",
+      "title": "NASDAQ Quant Analyzer",
+      "tagline": "6-Factor 퀀트 스크리너 + AI 멀티에이전트 레이어",
+      "domain": "quant",
+      "stack": ["Python", "Quant", "Multi-Agent"],
+      "highlights": [
+        "6-Factor 스크리닝 모델",
+        "AI 에이전트 후처리 분석"
+      ],
+      "github": "https://github.com/jinhae8971/nasdaq-quant-analyzer",
+      "live": null,
+      "featured": true
+    },
+    {
+      "slug": "kospi-peak-detector",
+      "title": "KOSPI Peak Detector",
+      "tagline": "4대 프레임워크 기반 코스피 중장기 고점 판독기",
+      "domain": "quant",
+      "stack": ["Python", "Technical Analysis"],
+      "highlights": [
+        "4개 프레임워크 앙상블",
+        "고점 시그널 스코어링"
+      ],
+      "github": "https://github.com/jinhae8971/kospi-peak-detector",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "kospi-strategy",
+      "title": "KOSPI 대응전략",
+      "tagline": "내일의 코스피 대응전략 — AI 기반 자동 분석 리포트",
+      "domain": "quant",
+      "stack": ["Python", "Claude API", "Jinja2"],
+      "highlights": [
+        "차일 전략 자동 생성",
+        "리포트 파이프라인"
+      ],
+      "github": "https://github.com/jinhae8971/kospi-strategy",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "etf-strategist",
+      "title": "ETF 매매전략가",
+      "tagline": "국내 ETF 섹터 분석 및 매매전략 자동화",
+      "domain": "quant",
+      "stack": ["Python", "ETF", "Sector Analysis"],
+      "highlights": [
+        "섹터 로테이션 분석",
+        "ETF 리포트 자동 생성"
+      ],
+      "github": "https://github.com/jinhae8971/etf-strategist",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "earnings-estimate-monitor",
+      "title": "Earnings Estimate Monitor",
+      "tagline": "어닝 컨센서스 변화 모니터링",
+      "domain": "quant",
+      "stack": ["Python"],
+      "highlights": [
+        "컨센서스 추적",
+        "변화량 시그널"
+      ],
+      "github": "https://github.com/jinhae8971/earnings-estimate-monitor",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "agentic-ide",
+      "title": "Agentic IDE (Claude)",
+      "tagline": "Claude API 기반 퍼스널 에이전틱 코딩 IDE",
+      "domain": "devtools",
+      "stack": ["TypeScript", "Claude API", "Electron/Node"],
+      "highlights": [
+        "에이전트 주도 코드 편집",
+        "툴 호출 기반 자율 태스크"
+      ],
+      "github": "https://github.com/jinhae8971/agentic-ide",
+      "live": null,
+      "featured": true
+    },
+    {
+      "slug": "agentic-ide-ollama",
+      "title": "Agentic IDE (Ollama · Qwen3)",
+      "tagline": "로컬 LLM(Ollama + Qwen3) 기반 에이전틱 IDE — 오프라인 친화",
+      "domain": "devtools",
+      "stack": ["TypeScript", "Ollama", "Qwen3", "Local LLM"],
+      "highlights": [
+        "로컬 추론 자율 에이전트",
+        "프라이버시 중심 워크플로우"
+      ],
+      "github": "https://github.com/jinhae8971/agentic-ide-ollama",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "stock-dashboard",
+      "title": "Personal Stock Dashboard",
+      "tagline": "개인용 증시 대시보드 — 시간별 자동 업데이트",
+      "domain": "dashboard",
+      "stack": ["HTML", "JavaScript", "GitHub Actions"],
+      "highlights": [
+        "시간 단위 자동 갱신",
+        "정적 배포"
+      ],
+      "github": "https://github.com/jinhae8971/stock-dashboard",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "kospi-dashboard",
+      "title": "KOSPI Strategy Dashboard",
+      "tagline": "퀀트 트레이딩 전략 인사이트 대시보드",
+      "domain": "dashboard",
+      "stack": ["JavaScript", "HTML"],
+      "highlights": [
+        "퀀트 전략 시각화",
+        "정적 배포"
+      ],
+      "github": "https://github.com/jinhae8971/kospi-dashboard",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "github-actions-dashboard",
+      "title": "GitHub Actions Dashboard",
+      "tagline": "여러 레포의 GitHub Actions 상태를 한 눈에",
+      "domain": "dashboard",
+      "stack": ["HTML", "GitHub API"],
+      "highlights": [
+        "Actions 워크플로우 모니터링",
+        "멀티 레포 집계"
+      ],
+      "github": "https://github.com/jinhae8971/github-actions-dashboard",
+      "live": null,
+      "featured": false
+    },
+    {
+      "slug": "us-iran-conflict-dashboard",
+      "title": "US-Iran Conflict Dashboard",
+      "tagline": "지정학 이슈 현황 추적 대시보드 (2026)",
+      "domain": "dashboard",
+      "stack": ["HTML", "Data Viz"],
+      "highlights": [
+        "지정학 이벤트 타임라인",
+        "정적 대시보드"
+      ],
+      "github": "https://github.com/jinhae8971/us-iran-conflict-dashboard",
+      "live": null,
+      "featured": false
+    }
+  ],
+  "stack": [
+    {
+      "category": "Languages",
+      "items": ["Python", "TypeScript", "JavaScript", "HTML/CSS"]
+    },
+    {
+      "category": "AI / LLM",
+      "items": ["Anthropic Claude API", "OpenAI API", "Ollama", "Qwen3", "Multi-Agent Orchestration"]
+    },
+    {
+      "category": "Data & Finance",
+      "items": ["feedparser (RSS)", "Quant Factor Models", "Technical Analysis", "ETF / Sector Analysis"]
+    },
+    {
+      "category": "Infra & Automation",
+      "items": ["GitHub Actions (cron)", "GitHub Pages", "Jinja2", "Static-first Deployment"]
+    }
+  ]
+}

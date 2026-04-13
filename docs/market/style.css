@@ -504,3 +504,23 @@ a:hover {
     display: none;
   }
 }
+
+/* Back to portfolio link */
+.back-to-portfolio {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  font-size: 13px;
+  color: var(--text-secondary, #8b949e);
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid rgba(139, 148, 158, 0.3);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.back-to-portfolio:hover {
+  color: var(--text-primary, #e6edf3);
+  border-color: rgba(139, 148, 158, 0.7);
+  background: rgba(139, 148, 158, 0.08);
+}
+.header { position: relative; }

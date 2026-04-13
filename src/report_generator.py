@@ -7,7 +7,7 @@ import glob
 
 from jinja2 import Environment, FileSystemLoader
 
-from src.config import DOCS_DIR, REPORTS_DIR, TEMPLATES_DIR, DATA_DIR, MAX_REPORT_DAYS
+from src.config import MARKET_DIR, REPORTS_DIR, TEMPLATES_DIR, DATA_DIR, MAX_REPORT_DAYS
 from src.models import DailyReport
 
 logger = logging.getLogger(__name__)
@@ -22,6 +22,7 @@ class ReportGenerator:
             autoescape=True,
         )
         os.makedirs(REPORTS_DIR, exist_ok=True)
+        os.makedirs(MARKET_DIR, exist_ok=True)
         os.makedirs(DATA_DIR, exist_ok=True)
 
     def generate(self, report: DailyReport) -> str:
@@ -101,7 +102,7 @@ class ReportGenerator:
 
         template = self.env.get_template("index.html")
         index_html = template.render(reports=reports_info)
-        index_path = os.path.join(DOCS_DIR, "index.html")
+        index_path = os.path.join(MARKET_DIR, "index.html")
         with open(index_path, "w", encoding="utf-8") as f:
             f.write(index_html)
         logger.info(f"  인덱스 페이지 업데이트: {index_path}")

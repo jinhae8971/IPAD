@@ -53,6 +53,7 @@ US_RSS_FEEDS = [
 ALL_FEEDS = KR_RSS_FEEDS + US_RSS_FEEDS
 
 DOCS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs")
-REPORTS_DIR = os.path.join(DOCS_DIR, "reports")
+MARKET_DIR = os.path.join(DOCS_DIR, "market")
+REPORTS_DIR = os.path.join(MARKET_DIR, "reports")
 TEMPLATES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "templates")
 DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")

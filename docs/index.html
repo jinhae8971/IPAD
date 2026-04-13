@@ -1,536 +1,162 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>한미 증시 AI 분석 대시보드</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="jinhae8971 — AI 멀티에이전트 엔지니어. Claude·Ollama 기반 에이전틱 시스템과 금융 시장 분석 자동화 포트폴리오." />
+  <title>jinhae8971 — AI Multi-Agent Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portfolio.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">&#x1F4CA;</span>
-        <h1>IPAD - 한미 증시 AI 분석</h1>
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <nav class="nav">
+    <a href="#top" class="nav-logo">
+      <span class="nav-logo-mark">◤</span>
+      <span class="nav-logo-text">jinhae8971</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="https://github.com/jinhae8971" target="_blank" rel="noopener">GitHub ↗</a>
+  </nav>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          🎯 Focusing — Building autonomous AI systems
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-title-line">AI <span class="grad">Multi-Agent</span></span>
+          <span class="hero-title-line">Engineer for</span>
+          <span class="hero-title-line"><span class="grad-alt">Financial Markets</span></span>
+        </h1>
+        <p class="hero-sub">
+          Claude · Ollama 기반 에이전틱 시스템과 퀀트 파이프라인을 설계·운용합니다.
+          뉴스 수집부터 멀티에이전트 토론, 자동 리포트 배포까지 — 금융 분석의 전 과정을 자동화합니다.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">프로젝트 보기</a>
+          <a class="btn btn-ghost" href="market/index.html">Live Demo: IPAD →</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-value" data-counter="21">0</div>
+            <div class="stat-label">Public Repos</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" data-counter="6">0</div>
+            <div class="stat-label">Agents in IPAD</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" data-counter="4">0</div>
+            <div class="stat-label">Expertise Domains</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value">Daily</div>
+            <div class="stat-label">Auto-Reports</div>
+          </div>
+        </div>
       </div>
-      <span class="header-date">Multi-Agent Analysis System</span>
-    </div>
-  </header>
+    </section>
 
-  <main class="container">
-    <div class="hero">
-      <h2>한미 증시 멀티에이전트 분석</h2>
-      <p>AI 에이전트가 매일 한국과 미국 증시 뉴스를 수집하고, 강세/약세/기술적 분석가의 토론을 통해 중장기 트레이딩 인사이트를 제공합니다.</p>
-    </div>
+    <!-- EXPERTISE MAP -->
+    <section id="expertise" class="section">
+      <header class="section-head">
+        <span class="kicker">01 — Expertise</span>
+        <h2>전문 영역 맵</h2>
+        <p class="section-lede">
+          GitHub 레포를 4개 도메인으로 클러스터링했습니다. 카드를 클릭하면 해당 도메인의 프로젝트만 필터링됩니다.
+        </p>
+      </header>
+      <div class="domain-grid" id="domain-grid">
+        <!-- domains injected by portfolio.js -->
+      </div>
+    </section>
 
-    
-    <div class="report-list">
-      
-      <a href="reports/2026-04-13.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-13</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
+    <!-- PROJECTS -->
+    <section id="projects" class="section">
+      <header class="section-head">
+        <span class="kicker">02 — Projects</span>
+        <h2>주요 프로젝트</h2>
+        <p class="section-lede">
+          AI 멀티에이전트 시스템과 금융 분석 자동화에 초점을 맞춘 대표작입니다.
+        </p>
+      </header>
+
+      <div class="filter-bar" id="filter-bar">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="multi-agent">🤖 Multi-Agent</button>
+        <button class="chip" data-filter="quant">📈 Quant</button>
+        <button class="chip" data-filter="devtools">🛠️ Dev Tools</button>
+        <button class="chip" data-filter="dashboard">📊 Dashboards</button>
+        <button class="chip chip-toggle" data-toggle="featured">★ Featured only</button>
+      </div>
+
+      <div class="project-grid" id="project-grid">
+        <!-- projects injected by portfolio.js -->
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" class="section">
+      <header class="section-head">
+        <span class="kicker">03 — Stack</span>
+        <h2>기술 스택</h2>
+        <p class="section-lede">실제 레포들에서 반복적으로 사용되는 도구 집합입니다.</p>
+      </header>
+      <div class="stack-grid" id="stack-grid">
+        <!-- stack injected by portfolio.js -->
+      </div>
+    </section>
+
+    <!-- ABOUT / CONTACT -->
+    <section id="contact" class="section section-contact">
+      <header class="section-head">
+        <span class="kicker">04 — About</span>
+        <h2>함께 작업하고 싶으시다면</h2>
+      </header>
+      <div class="contact-card">
+        <div class="contact-text">
+          <p>
+            저는 <strong>AI 에이전트 오케스트레이션</strong>과
+            <strong>금융 시장 자동 분석</strong>의 교집합에서 일합니다.
+            한미 증시 뉴스 파이프라인, 퀀트 스크리너, 로컬 LLM 기반 IDE까지
+            — 매일 돌아가는 자율 시스템을 만드는 데 관심이 있습니다.
+          </p>
+          <p class="muted">
+            현재 GitHub 프로필 공개 정보: <code>🎯 Focusing</code>.
+            더 많은 소개는 곧 추가될 예정입니다.
+          </p>
         </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-12.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-12</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="https://github.com/jinhae8971" target="_blank" rel="noopener">GitHub Profile ↗</a>
+          <a class="btn btn-ghost" href="market/index.html">Live Demo: IPAD</a>
         </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-11.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-11</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-10.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-10</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 29건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-09.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-09</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-08.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-08</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-07.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-07</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 24건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-06.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-06</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-05.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-05</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-04.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-04</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 22건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-03.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-03</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 27건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-02.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-02</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 27건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-04-01.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-04-01</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 28건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-31.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-31</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-30.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-30</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-29.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-29</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 24건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-28.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-28</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 28건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-27.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-27</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 29건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-26.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-26</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 29건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-25.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-25</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 26건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-24.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-24</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-23.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-23</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 23건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-22.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-22</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-21.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-21</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 28건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-20.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-20</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 28건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-19.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-19</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-18.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-18</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 27건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-17.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-17</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 28건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-16.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-16</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 25건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-15.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-15</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 27건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-      <a href="reports/2026-03-14.html" class="report-card" style="text-decoration: none; color: inherit;">
-        <div class="report-card-left">
-          <div class="report-date">2026-03-14</div>
-          
-          <div class="report-meta">
-            
-            <span class="badge badge-kr">KR 30건</span>
-            
-            
-            <span class="badge badge-us">US 31건</span>
-            
-          </div>
-        </div>
-        <div class="report-card-right">&#x2192;</div>
-      </a>
-      
-    </div>
-    
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
-    <div class="disclaimer">
-      &#x26A0;&#xFE0F; 본 분석은 AI가 자동 생성한 것으로, 투자 권유가 아닙니다.
-      투자 결정은 본인의 판단과 책임 하에 이루어져야 합니다.
+    <div class="footer-inner">
+      <span>© <span id="year"></span> jinhae8971 — Built with static HTML + CSS + vanilla JS.</span>
+      <span class="footer-links">
+        <a href="https://github.com/jinhae8971" target="_blank" rel="noopener">GitHub</a>
+        <a href="market/index.html">Market Analysis Demo</a>
+      </span>
     </div>
   </footer>
+
+  <script src="portfolio.js"></script>
 </body>
 </html>
