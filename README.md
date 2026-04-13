@@ -20,39 +20,61 @@
 
 ## 기술 스택
 
-- **프론트엔드**: Vite 5 + React 18 + TypeScript (strict)
+- **프론트엔드**: Vite 5 + React 18 + TypeScript (strict) + TanStack Query 5
+- **백엔드**: FastAPI + Pydantic v2 (Python 3.11)
 - **라우팅**: react-router-dom v6 (HashRouter → GH Pages 친화)
-- **테스트**: Vitest + jsdom + Testing Library
+- **테스트**: Vitest + jsdom + Testing Library / pytest
 - **품질**: ESLint + Prettier + TypeScript typecheck
-- **CI/CD**: GitHub Actions (CI + GH Pages 배포)
+- **CI/CD**: GitHub Actions (frontend + backend CI + GH Pages 배포)
 
 ## 저장소 레이아웃
 
 ```
 /
 ├── src/                            # AI Workstation 프론트엔드 (Vite+React+TS)
+│   ├── api/                        # fetch client + TanStack Query hooks
 │   ├── components/                 # Layout, TopTabs, Sidebar, AgentCard
 │   ├── pages/                      # Home, GettingStarted, Agents, AgentDetail,
 │   │                               # ApiProviders, Advanced, Workloads
-│   ├── data/agents.ts              # 에이전트 카탈로그 시드
+│   ├── data/agents.ts              # 에이전트 카탈로그 (정적 fallback)
 │   ├── types/agent.ts              # 도메인 타입
 │   ├── styles/                     # global.css, pages.css
 │   └── router.tsx                  # HashRouter 구성
+├── backend/                        # FastAPI API 서버
+│   ├── app/
+│   │   ├── main.py                 # FastAPI 앱
+│   │   ├── models.py               # Pydantic 모델
+│   │   ├── data/                   # agents / providers / workloads 시드
+│   │   └── routers/                # /api/agents /api/providers /api/workloads
+│   ├── tests/test_api.py           # pytest
+│   └── requirements.txt
 ├── analyzer/                       # 기존 한미 증시 멀티에이전트 분석 시스템 (Python)
 │   ├── src/ templates/ docs/ data/
 │   └── requirements.txt
 └── .github/workflows/
-    ├── ci.yml                      # 포맷·린트·타입체크·테스트·빌드
+    ├── ci.yml                      # 프론트 + 백엔드 CI
     ├── deploy.yml                  # main 푸시 시 GH Pages 배포
     └── daily-analysis.yml          # 기존 Python 분석기 일일 실행
 ```
 
 ## 로컬 개발
 
+프론트엔드와 백엔드를 두 개의 터미널에서 함께 실행합니다.
+
 ```bash
+# Terminal 1 — Backend (FastAPI)
+cd backend
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+PYTHONPATH=. uvicorn app.main:app --reload --port 8000
+# OpenAPI 문서: http://localhost:8000/docs
+
+# Terminal 2 — Frontend (Vite)
 npm install
-npm run dev       # http://localhost:5173
+npm run dev       # http://localhost:5173  (/api 는 자동으로 :8000 으로 프록시)
 ```
+
+프론트엔드는 백엔드가 꺼져 있어도 에이전트 카탈로그·카테고리 정적 시드로 동작합니다 (TanStack Query `placeholderData`). 프로바이더·워크로드 탭은 백엔드 응답을 직접 소비합니다.
 
 ## 품질 게이트
 
@@ -70,8 +92,9 @@ npm run build          # 프로덕션 빌드 → dist/
 
 ### CI (`.github/workflows/ci.yml`)
 
-모든 push · PR · 수동 실행에서 Node 22 환경으로 다음을 순차 실행합니다.
+모든 push · PR · 수동 실행에서 두 개의 병렬 job이 실행됩니다.
 
+**frontend** (Node 22)
 1. `npm ci`
 2. `npm run format:check`
 3. `npm run lint`
@@ -79,6 +102,10 @@ npm run build          # 프로덕션 빌드 → dist/
 5. `npm test`
 6. `npm run build`
 7. `dist/` 업로드 (아티팩트 `workstation-dist`, 7일 보존)
+
+**backend** (Python 3.11)
+1. `pip install -r backend/requirements.txt`
+2. `PYTHONPATH=. pytest -q` (from `backend/`)
 
 ### Deploy (`.github/workflows/deploy.yml`)
 
