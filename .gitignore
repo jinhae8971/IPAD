@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.pyc
 *.pyo
@@ -5,6 +6,19 @@ __pycache__/
 .venv/
 venv/
 *.egg-info/
+
+# Node / Vite
+node_modules/
 dist/
 build/
+.vite/
+*.local
+*.tsbuildinfo
+
+# Test
+coverage/
+
+# Editors / OS
 .DS_Store
+.idea/
+.vscode/

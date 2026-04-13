@@ -1,0 +1,5 @@
+dist
+node_modules
+analyzer
+*.html
+package-lock.json
