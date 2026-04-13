@@ -62,3 +62,19 @@ class Workload(BaseModel):
 class HealthResponse(BaseModel):
     status: Literal["ok"]
     version: str
+
+
+class DocSummarizerRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=50_000)
+
+
+class DocSummarizerResponse(BaseModel):
+    summary: str
+    quotes: List[str]
+    model: str
+    input_tokens: int = Field(alias="inputTokens")
+    output_tokens: int = Field(alias="outputTokens")
+    workload_id: str = Field(alias="workloadId")
+    duration_sec: int = Field(alias="durationSec")
+
+    model_config = {"populate_by_name": True}

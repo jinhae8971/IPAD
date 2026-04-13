@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { AGENT_CATEGORIES, getAgentById } from '../data/agents';
+import DocSummarizerRunner from '../components/DocSummarizerRunner';
 
 export default function AgentDetail() {
   const { agentId } = useParams<{ agentId: string }>();
@@ -76,6 +77,8 @@ export default function AgentDetail() {
             ))}
           </ul>
         </div>
+
+        {agent.id === 'doc-summarizer' && <DocSummarizerRunner />}
       </div>
     </section>
   );
