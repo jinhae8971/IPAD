@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, within } from '@testing-library/react';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from '../components/Layout';
 import Agents from './Agents';
 import AgentDetail from './AgentDetail';
@@ -21,7 +22,17 @@ function renderAt(path: string) {
     ],
     { initialEntries: [path] },
   );
-  return render(<RouterProvider router={router} />);
+  // Some agent detail pages mount mutation hooks (Doc Summarizer,
+  // Code Reviewer), so a QueryClient is required even though the
+  // assertions below don't trigger any queries.
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+  });
+  return render(
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>,
+  );
 }
 
 // Scope queries to the main content region so we don't collide with the

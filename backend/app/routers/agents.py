@@ -4,11 +4,15 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
 
+from ..agents.code_reviewer import CodeReviewerError, review
 from ..agents.doc_summarizer import SummarizerError, summarize
 from ..data.agents import AGENTS, CATEGORIES, get_agent, get_agents_by_category
 from ..models import (
     Agent,
     AgentCategory,
+    CodeReviewComment,
+    CodeReviewerRequest,
+    CodeReviewerResponse,
     DocSummarizerRequest,
     DocSummarizerResponse,
 )
@@ -54,6 +58,40 @@ def run_doc_summarizer(request: DocSummarizerRequest) -> DocSummarizerResponse:
     return DocSummarizerResponse(
         summary=result.summary,
         quotes=result.quotes,
+        model=result.model,
+        inputTokens=result.input_tokens,
+        outputTokens=result.output_tokens,
+        workloadId=result.workload_id,
+        durationSec=result.duration_sec,
+    )
+
+
+@router.post(
+    "/code-reviewer/run",
+    response_model=CodeReviewerResponse,
+    response_model_by_alias=True,
+)
+def run_code_reviewer(request: CodeReviewerRequest) -> CodeReviewerResponse:
+    try:
+        result = review(request.diff, context=request.context)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except CodeReviewerError as exc:
+        raise HTTPException(status_code=502, detail=str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=f"LLM call failed: {exc}") from exc
+
+    return CodeReviewerResponse(
+        summary=result.summary,
+        comments=[
+            CodeReviewComment(
+                file=c.file,
+                line=c.line,
+                severity=c.severity,
+                message=c.message,
+            )
+            for c in result.comments
+        ],
         model=result.model,
         inputTokens=result.input_tokens,
         outputTokens=result.output_tokens,

@@ -78,3 +78,30 @@ class DocSummarizerResponse(BaseModel):
     duration_sec: int = Field(alias="durationSec")
 
     model_config = {"populate_by_name": True}
+
+
+Severity = Literal["info", "warning", "critical"]
+
+
+class CodeReviewComment(BaseModel):
+    file: str
+    line: int
+    severity: Severity
+    message: str
+
+
+class CodeReviewerRequest(BaseModel):
+    diff: str = Field(..., min_length=1, max_length=100_000)
+    context: str | None = Field(default=None, max_length=50_000)
+
+
+class CodeReviewerResponse(BaseModel):
+    summary: str
+    comments: List[CodeReviewComment]
+    model: str
+    input_tokens: int = Field(alias="inputTokens")
+    output_tokens: int = Field(alias="outputTokens")
+    workload_id: str = Field(alias="workloadId")
+    duration_sec: int = Field(alias="durationSec")
+
+    model_config = {"populate_by_name": True}

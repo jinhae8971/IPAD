@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { AGENT_CATEGORIES, getAgentById } from '../data/agents';
+import CodeReviewerRunner from '../components/CodeReviewerRunner';
 import DocSummarizerRunner from '../components/DocSummarizerRunner';
 
 export default function AgentDetail() {
@@ -79,6 +80,7 @@ export default function AgentDetail() {
         </div>
 
         {agent.id === 'doc-summarizer' && <DocSummarizerRunner />}
+        {agent.id === 'code-reviewer' && <CodeReviewerRunner />}
       </div>
     </section>
   );
