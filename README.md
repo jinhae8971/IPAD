@@ -53,7 +53,9 @@
 │   ├── tests/                      # pytest (conftest로 임시 DB)
 │   ├── Dockerfile                  # Python 멀티스테이지 + 비루트 실행
 │   └── requirements.txt
-├── analyzer/                       # 기존 한미 증시 멀티에이전트 분석 시스템 (Python)
+├── analyzer/                       # ⚠ 별개 프로젝트 — 한미 증시 분석 시스템(IPAD)
+│   │                               #    AI Workstation 백엔드와 통합되지 않으며,
+│   │                               #    daily-analysis.yml 워크플로우로만 동작합니다.
 │   ├── src/ templates/ docs/ data/
 │   └── requirements.txt
 ├── Dockerfile                      # Frontend: Vite build → nginx serve
@@ -154,13 +156,13 @@ npm run build          # 프로덕션 빌드 → dist/
 
 ## 에이전트 카탈로그 (시드)
 
-- **코딩**: Code Architect / Code Implementer / Code Reviewer
-- **분석**: Market Analyst (IPAD) / Doc Summarizer
+- **코딩**: Code Architect / Code Implementer / Code Reviewer ✅ 실행 가능
+- **분석**: Doc Summarizer ✅ 실행 가능
 - **자동화**: Workflow Runner / Scheduler
 - **데이터**: Data Collector / Indexer
 - **운영**: Deployer / Observer
 
-카탈로그는 `src/data/agents.ts`에서 관리합니다. 실제 백엔드 연동은 후속 단계에서 추가됩니다.
+카탈로그의 source of truth는 `backend/app/data/agents.py` 입니다 (`GET /api/agents`로 노출). `src/data/agents.ts`는 백엔드가 꺼져 있을 때를 위한 placeholderData fallback입니다 (Phase 11 참고).
 
 ## 환경 변수
 

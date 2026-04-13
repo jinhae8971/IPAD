@@ -30,8 +30,11 @@ def test_list_agents_all() -> None:
     response = client.get("/api/agents")
     assert response.status_code == 200
     agents = response.json()
-    assert len(agents) == 11
-    assert any(a["id"] == "market-analyst" for a in agents)
+    assert len(agents) == 10
+    assert any(a["id"] == "doc-summarizer" for a in agents)
+    # Market Analyst belongs to the unrelated analyzer/ project and
+    # was removed from the AI Workstation catalog in Phase 12.
+    assert all(a["id"] != "market-analyst" for a in agents)
 
 
 def test_list_agents_filter_by_category() -> None:

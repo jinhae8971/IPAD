@@ -45,11 +45,11 @@ describe('Agents page', () => {
   it('filters agents by category chip', () => {
     renderAt('/agents');
     expect(mainRegion().getByText('Code Architect')).toBeInTheDocument();
-    expect(mainRegion().getByText('Market Analyst')).toBeInTheDocument();
+    expect(mainRegion().getByText('Doc Summarizer')).toBeInTheDocument();
 
     fireEvent.click(mainRegion().getByRole('button', { name: '분석' }));
 
-    expect(mainRegion().getByText('Market Analyst')).toBeInTheDocument();
+    expect(mainRegion().getByText('Doc Summarizer')).toBeInTheDocument();
     expect(mainRegion().queryByText('Code Architect')).not.toBeInTheDocument();
   });
 
