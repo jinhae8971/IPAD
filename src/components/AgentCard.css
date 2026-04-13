@@ -9,7 +9,10 @@
   color: var(--text);
   cursor: pointer;
   text-align: left;
-  transition: border-color 0.12s ease, transform 0.12s ease, background 0.12s ease;
+  transition:
+    border-color 0.12s ease,
+    transform 0.12s ease,
+    background 0.12s ease;
 }
 
 .agent-card:hover {

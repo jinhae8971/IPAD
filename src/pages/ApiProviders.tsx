@@ -49,7 +49,8 @@ export default function ApiProviders() {
     <div className="page">
       <h2 className="page__title">API &amp; 프로바이더</h2>
       <p className="page__subtitle">
-        워크스테이션이 사용할 LLM 프로바이더와 API 키를 관리합니다. 실제 시크릿은 환경 변수로 주입됩니다.
+        워크스테이션이 사용할 LLM 프로바이더와 API 키를 관리합니다. 실제 시크릿은 환경 변수로
+        주입됩니다.
       </p>
 
       <div className="grid grid--2">

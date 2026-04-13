@@ -23,7 +23,9 @@ cd analyzer && pip install -r requirements.txt && cd ..`}</pre>
 
       <section className="page__section">
         <h3 className="page__section-title">3. 환경 변수 설정</h3>
-        <p className="muted">프로젝트 루트의 <code>.env</code> 파일 또는 셸 환경에 설정합니다.</p>
+        <p className="muted">
+          프로젝트 루트의 <code>.env</code> 파일 또는 셸 환경에 설정합니다.
+        </p>
         <pre className="code-block">{`export ANTHROPIC_API_KEY="sk-ant-..."
 export OPENAI_API_KEY="sk-..."    # 선택
 export OLLAMA_HOST="http://localhost:11434"  # 선택`}</pre>

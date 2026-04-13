@@ -86,8 +86,7 @@ export const AGENTS: Agent[] = [
     name: 'Market Analyst',
     category: 'analysis',
     tagline: '한미 증시 멀티에이전트 분석 (IPAD)',
-    description:
-      '뉴스 수집·요약·강세/약세/기술 토론을 거쳐 중장기 트레이딩 인사이트를 도출합니다.',
+    description: '뉴스 수집·요약·강세/약세/기술 토론을 거쳐 중장기 트레이딩 인사이트를 도출합니다.',
     capabilities: ['RSS 수집', '멀티에이전트 토론', '리포트 생성'],
     defaultModel: 'claude-haiku-4-5',
     tags: ['finance', 'multi-agent', 'reporting'],

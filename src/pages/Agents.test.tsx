@@ -52,9 +52,7 @@ describe('Agents page', () => {
 
   it('renders agent detail via nested route', () => {
     renderAt('/agents/code-reviewer');
-    expect(
-      mainRegion().getByRole('heading', { name: /Code Reviewer/i }),
-    ).toBeInTheDocument();
+    expect(mainRegion().getByRole('heading', { name: /Code Reviewer/i })).toBeInTheDocument();
     expect(mainRegion().getByText(/diff 기반 리뷰/)).toBeInTheDocument();
   });
 });

@@ -6,12 +6,7 @@
  * the sidebar and the AI 에이전트 page.
  */
 
-export type AgentCategoryId =
-  | 'coding'
-  | 'analysis'
-  | 'automation'
-  | 'data'
-  | 'ops';
+export type AgentCategoryId = 'coding' | 'analysis' | 'automation' | 'data' | 'ops';
 
 export interface AgentCategory {
   id: AgentCategoryId;

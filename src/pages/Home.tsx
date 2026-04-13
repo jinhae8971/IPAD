@@ -69,7 +69,9 @@ export default function Home() {
             return (
               <div key={category.id} className="card">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{ fontSize: 22, color: 'var(--accent-hover)' }}>{category.icon}</span>
+                  <span style={{ fontSize: 22, color: 'var(--accent-hover)' }}>
+                    {category.icon}
+                  </span>
                   <strong>{category.label}</strong>
                   <span className="pill" style={{ marginLeft: 'auto' }}>
                     {count}개
