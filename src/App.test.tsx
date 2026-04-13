@@ -30,7 +30,7 @@ function renderAt(path: string) {
 describe('Layout', () => {
   it('renders the AI Workstation brand', () => {
     renderAt('/');
-    expect(screen.getByRole('heading', { name: /AI Workstation/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /AI Workstation/i })).toBeInTheDocument();
   });
 
   it('renders all six top tabs', () => {
