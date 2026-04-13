@@ -1,22 +1,24 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AGENT_CATEGORIES, getAgentsByCategory } from '../data/agents';
+import { useAgentCategories, useAgents } from '../api/hooks';
 import type { AgentCategoryId } from '../types/agent';
 import './Sidebar.css';
 
 /**
  * Left sidebar listing agent categories.
  *
- * Each category can be expanded to show its agents. Clicking an agent
- * routes to /agents/:agentId, which renders inside the AI 에이전트 page.
+ * Categories and agents are fetched from the backend via
+ * useAgentCategories / useAgents. Both hooks fall back to the static
+ * seed catalog as placeholderData so the sidebar stays usable when
+ * the backend is offline (and tests render without a network).
  */
 export default function Sidebar() {
-  const [expanded, setExpanded] = useState<Record<AgentCategoryId, boolean>>({
+  const { data: categories = [] } = useAgentCategories();
+  const { data: agents = [] } = useAgents();
+
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({
     coding: true,
     analysis: true,
-    automation: false,
-    data: false,
-    ops: false,
   });
 
   const toggle = (id: AgentCategoryId) => {
@@ -27,9 +29,9 @@ export default function Sidebar() {
     <aside className="sidebar" aria-label="agent categories">
       <div className="sidebar__heading">에이전트</div>
       <ul className="sidebar__categories">
-        {AGENT_CATEGORIES.map((category) => {
-          const agents = getAgentsByCategory(category.id);
-          const isOpen = expanded[category.id];
+        {categories.map((category) => {
+          const items = agents.filter((a) => a.category === category.id);
+          const isOpen = expanded[category.id] ?? false;
           return (
             <li key={category.id} className="sidebar__category">
               <button
@@ -42,7 +44,7 @@ export default function Sidebar() {
                   {category.icon}
                 </span>
                 <span className="sidebar__category-label">{category.label}</span>
-                <span className="sidebar__category-count">{agents.length}</span>
+                <span className="sidebar__category-count">{items.length}</span>
                 <span
                   className={`sidebar__chevron${isOpen ? ' sidebar__chevron--open' : ''}`}
                   aria-hidden="true"
@@ -52,7 +54,7 @@ export default function Sidebar() {
               </button>
               {isOpen && (
                 <ul className="sidebar__agents">
-                  {agents.map((agent) => (
+                  {items.map((agent) => (
                     <li key={agent.id}>
                       <NavLink
                         to={`/agents/${agent.id}`}

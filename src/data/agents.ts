@@ -1,10 +1,17 @@
 import type { Agent, AgentCategory } from '../types/agent';
 
 /**
- * Seed data for the AI Workstation agent catalog.
+ * Static seed for the AI Workstation agent catalog.
  *
- * This is a static catalog for the v0 web home. Later phases will
- * source this from a backend / config file.
+ * Source of truth as of Phase 11 lives in the backend
+ * (``backend/app/data/agents.py``) and is exposed via
+ * ``GET /api/agents`` + ``GET /api/agents/categories``. This file is
+ * imported by ``src/api/hooks.ts`` only to populate React Query's
+ * ``placeholderData`` so the UI stays usable when the backend is
+ * unreachable (e.g. during tests or static GH Pages preview).
+ *
+ * Keep this file in sync when adding new seed agents — both copies
+ * exist for resilience, but the backend remains authoritative.
  */
 
 export const AGENT_CATEGORIES: AgentCategory[] = [

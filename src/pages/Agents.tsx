@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Outlet, useMatch, useNavigate } from 'react-router-dom';
-import { AGENTS, AGENT_CATEGORIES } from '../data/agents';
+import { useAgentCategories, useAgents } from '../api/hooks';
 import type { AgentCategoryId } from '../types/agent';
 import AgentCard from '../components/AgentCard';
 
@@ -11,12 +11,15 @@ export default function Agents() {
   const match = useMatch('/agents/:agentId');
   const activeId = match?.params.agentId;
 
+  const { data: agents = [] } = useAgents();
+  const { data: categories = [] } = useAgentCategories();
+
   const [filter, setFilter] = useState<Filter>('all');
   const [query, setQuery] = useState('');
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return AGENTS.filter((a) => {
+    return agents.filter((a) => {
       if (filter !== 'all' && a.category !== filter) return false;
       if (!q) return true;
       return (
@@ -25,7 +28,7 @@ export default function Agents() {
         a.tags.some((t) => t.toLowerCase().includes(q))
       );
     });
-  }, [filter, query]);
+  }, [filter, query, agents]);
 
   return (
     <div className="page">
@@ -50,7 +53,7 @@ export default function Agents() {
         >
           전체
         </button>
-        {AGENT_CATEGORIES.map((c) => (
+        {categories.map((c) => (
           <button
             type="button"
             key={c.id}

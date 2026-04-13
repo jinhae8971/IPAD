@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
-import { AGENTS, AGENT_CATEGORIES } from '../data/agents';
+import { useAgentCategories, useAgents } from '../api/hooks';
 
 const MOCK_RUNNING_WORKLOADS = 3;
 
 export default function Home() {
+  const { data: agents = [] } = useAgents();
+  const { data: categories = [] } = useAgentCategories();
+
   return (
     <div className="page">
       <h2 className="page__title">AI Workstation</h2>
@@ -16,18 +19,18 @@ export default function Home() {
         <div className="stat-grid">
           <div className="stat-card">
             <div className="stat-card__label">등록 에이전트</div>
-            <div className="stat-card__value">{AGENTS.length}</div>
-            <div className="stat-card__hint">카탈로그 시드</div>
+            <div className="stat-card__value">{agents.length}</div>
+            <div className="stat-card__hint">백엔드 카탈로그</div>
           </div>
           <div className="stat-card">
             <div className="stat-card__label">카테고리</div>
-            <div className="stat-card__value">{AGENT_CATEGORIES.length}</div>
+            <div className="stat-card__value">{categories.length}</div>
             <div className="stat-card__hint">코딩 / 분석 / 자동화 / 데이터 / 운영</div>
           </div>
           <div className="stat-card">
             <div className="stat-card__label">실행 중 워크로드</div>
             <div className="stat-card__value">{MOCK_RUNNING_WORKLOADS}</div>
-            <div className="stat-card__hint">샘플 (Phase 4+에서 실연동)</div>
+            <div className="stat-card__hint">샘플 (Phase 13+에서 라이브 카운트)</div>
           </div>
           <div className="stat-card">
             <div className="stat-card__label">프로바이더</div>
@@ -64,8 +67,8 @@ export default function Home() {
       <section className="page__section">
         <h3 className="page__section-title">카테고리 요약</h3>
         <div className="grid grid--3">
-          {AGENT_CATEGORIES.map((category) => {
-            const count = AGENTS.filter((a) => a.category === category.id).length;
+          {categories.map((category) => {
+            const count = agents.filter((a) => a.category === category.id).length;
             return (
               <div key={category.id} className="card">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>

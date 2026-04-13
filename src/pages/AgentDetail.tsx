@@ -1,11 +1,14 @@
 import { useParams } from 'react-router-dom';
-import { AGENT_CATEGORIES, getAgentById } from '../data/agents';
+import { useAgentCategories, useAgents } from '../api/hooks';
 import CodeReviewerRunner from '../components/CodeReviewerRunner';
 import DocSummarizerRunner from '../components/DocSummarizerRunner';
 
 export default function AgentDetail() {
   const { agentId } = useParams<{ agentId: string }>();
-  const agent = agentId ? getAgentById(agentId) : undefined;
+  const { data: agents = [] } = useAgents();
+  const { data: categories = [] } = useAgentCategories();
+
+  const agent = agentId ? agents.find((a) => a.id === agentId) : undefined;
 
   if (!agent) {
     return (
@@ -18,7 +21,7 @@ export default function AgentDetail() {
     );
   }
 
-  const category = AGENT_CATEGORIES.find((c) => c.id === agent.category);
+  const category = categories.find((c) => c.id === agent.category);
 
   return (
     <section className="page__section">
