@@ -2,7 +2,13 @@ name: Deploy
 
 on:
   push:
-    branches: [main, master]
+    # claude/ai-workstation-setup-hXamX is temporarily listed so the
+    # in-progress branch can publish a GH Pages preview without being
+    # merged to main yet. Remove it once the work lands on main.
+    branches:
+      - main
+      - master
+      - claude/ai-workstation-setup-hXamX
   workflow_dispatch:
 
 permissions:
