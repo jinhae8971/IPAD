@@ -37,6 +37,7 @@ jobs:
       - name: Run analysis pipeline
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          USAGE_DISPATCH_TOKEN: ${{ secrets.USAGE_DISPATCH_TOKEN }}
         run: python src/main.py
 
       - name: Commit and push results

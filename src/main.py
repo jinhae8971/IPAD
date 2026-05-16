@@ -8,6 +8,13 @@ from datetime import datetime, timezone, timedelta
 # 프로젝트 루트를 path에 추가
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Anthropic usage reporting (auto-reports each Claude call to central dashboard)
+try:
+    from src.anthropic_usage_reporter import patch_anthropic_client
+    patch_anthropic_client(workflow="ipad-daily-analysis")
+except Exception:
+    pass
+
 from src.agents.news_collector import NewsCollector
 from src.agents.news_analyst import NewsAnalyst
 from src.agents.bull_analyst import BullAnalyst
